@@ -1,4 +1,4 @@
-package com.akanbi.rickandmorty.ui.theme
+package com.akanbi.rickandmorty.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
