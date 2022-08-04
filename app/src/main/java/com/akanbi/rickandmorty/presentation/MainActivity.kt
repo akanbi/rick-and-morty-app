@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    SplashScreenComponent()
                 }
             }
         }
@@ -40,32 +40,21 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
+fun SplashScreenComponent() {
     SubcomposeAsyncImage(
-        model = "https://mir-s3-cdn-cf.behance.net/projects/max_808/2ee5d290690493.Y3JvcCw5MTUsNzE2LDc2OCwxODE.png",
+//        model = "https://mir-s3-cdn-cf.behance.net/projects/max_808/2ee5d290690493.Y3JvcCw5MTUsNzE2LDc2OCwxODE.png",
+        model = "https://cdn.dribbble.com/users/4517867/screenshots/10757134/sequ_ncia_01.gif",
         loading = {
             CircularProgressIndicator()
         },
         contentDescription = "Blá"
     )
-
-//    AsyncImage(
-//        model = ImageRequest.Builder(LocalContext.current)
-//            .data("https://mir-s3-cdn-cf.behance.net/projects/max_808/2ee5d290690493.Y3JvcCw5MTUsNzE2LDc2OCwxODE.png")
-//            .crossfade(true)
-//            .build(),
-//        placeholder = painterResource(id = android.R.drawable.alert_dark_frame),
-//        contentDescription = "",
-//        contentScale = ContentScale.Crop,
-//        modifier = Modifier.clip(CircleShape)
-//    )
-//    Text(text = "Hello $name!")
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     RickAndMortyTheme {
-        Greeting("Android")
+        SplashScreenComponent()
     }
 }
