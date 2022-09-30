@@ -1,6 +1,8 @@
 package com.akanbi.rickandmorty.di
 
 import com.akanbi.rickandmorty.BuildConfig
+import com.akanbi.rickandmorty.common.ProviderContext
+import com.akanbi.rickandmorty.domain.mapper.CharacterMapper
 import com.akanbi.rickandmorty.network.CharacterAPI
 import com.akanbi.rickandmorty.network.EpisodeAPI
 import com.akanbi.rickandmorty.network.LocationAPI
@@ -56,4 +58,20 @@ object AppModule {
     @Provides
     @Singleton
     fun buildEpisodeApi(retrofit: Retrofit) = retrofit.create(EpisodeAPI::class.java)
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object MapperModule {
+
+    @Provides
+    fun bindCharacterMapper() = CharacterMapper()
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object CommonModule {
+
+    @Provides
+    fun bindProviderContext() = ProviderContext()
 }
