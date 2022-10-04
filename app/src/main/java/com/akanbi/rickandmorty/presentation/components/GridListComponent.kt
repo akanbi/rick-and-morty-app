@@ -2,25 +2,32 @@ package com.akanbi.rickandmorty.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.material.rememberSwipeableState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.akanbi.rickandmorty.domain.model.Character
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import timber.log.Timber
 
 @Composable
-fun GridListComponent(elements: List<Character>) {
+fun GridListComponent(
+    elements: List<Character>,
+    isRefreshing: Boolean,
+    onRefresh: () -> Unit,
+    onPagination: () -> Unit
+) {
     SwipeRefresh(
-        state = rememberSwipeRefreshState(false),
+        modifier = Modifier.fillMaxSize(),
+        state = rememberSwipeRefreshState(isRefreshing),
         onRefresh = {
-            /*TODO*/
-    }) {
+            onRefresh()
+        }
+    ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             state = rememberLazyGridState(),
@@ -28,17 +35,22 @@ fun GridListComponent(elements: List<Character>) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(elements) {
-                ItemElementListComponent(character = it)
+            itemsIndexed(elements) { index: Int, item: Character ->
+                if (index == elements.size - 1) {
+                    Timber.d("Pagination - position: $index list size: ${elements.size - 1}")
+                    onPagination()
+                } else
+                    ItemElementListComponent(character = item)
             }
         }
+
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GridListPreview() {
-    GridListComponent(elements = charactersSample)
+    GridListComponent(elements = charactersSample, false, {}, {})
 }
 
 val charactersSample = listOf(

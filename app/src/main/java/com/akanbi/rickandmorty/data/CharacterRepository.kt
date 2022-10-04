@@ -10,8 +10,8 @@ class CharacterRepository @Inject constructor(
     private val api: CharacterAPI
 ) {
 
-    suspend fun list() = safeApiCall {
-        api.list()
+    suspend fun list(page: Int) = safeApiCall {
+        api.list(page)
     }
 
     suspend fun findById(id: String) = safeApiCall {
