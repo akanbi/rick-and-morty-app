@@ -53,7 +53,7 @@ fun GridListPreview() {
     GridListComponent(elements = charactersSample, false, {}, {})
 }
 
-val charactersSample = listOf(
+val charactersSample = mutableListOf(
     Character(
         1,
         "Rick Sanchez",

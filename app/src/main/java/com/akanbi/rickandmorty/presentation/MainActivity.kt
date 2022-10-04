@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.akanbi.rickandmorty.common.presentation.observerEvent
 import com.akanbi.rickandmorty.domain.model.Character
@@ -36,9 +37,8 @@ class MainActivity : ComponentActivity() {
                     HomeScreen(
                         elements = characters,
                         isRefreshing = isRefreshing,
-                        onRefresh = { characterViewModel.refreshList() },
-                        onPagination = { characterViewModel.list() }
-                    )
+                        onRefresh = { characterViewModel.refreshList() }
+                    ) { characterViewModel.list() }
                 }
             }
         }
@@ -53,18 +53,9 @@ class MainActivity : ComponentActivity() {
             onSuccess = {
                 characters.addAll(it)
                 setContent {
-                    HomeScreen(
-                        elements = characters,
-                        isRefreshing = isRefreshing,
-                        onRefresh = {
-                            characters.clear()
-                            characterViewModel.refreshList()
-                        },
-                        onPagination = {
-                            characterViewModel.list()
-                        }
-                    )
+                    SetupHomeScreen()
                 }
+                isRefreshing = false
             },
             onError = {}
         )
@@ -73,5 +64,19 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-}
+    @Composable
+    private fun SetupHomeScreen() {
+        HomeScreen(
+            elements = characters,
+            isRefreshing = isRefreshing,
+            onRefresh = {
+                characters = mutableListOf()
+                characterViewModel.refreshList()
+            },
+            onPagination = {
+                characterViewModel.list()
+            }
+        )
+    }
 
+}

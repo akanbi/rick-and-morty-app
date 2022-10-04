@@ -9,18 +9,25 @@ import com.akanbi.rickandmorty.presentation.components.charactersSample
 
 @Composable
 fun HomeScreen(
-    elements: List<Character>,
+    elements: MutableList<Character>,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
     onPagination: () -> Unit
 ) {
     Surface {
-        GridListComponent(elements = elements, isRefreshing, onRefresh, onPagination)
+        GridListComponent(
+            elements = elements,
+            isRefreshing = isRefreshing,
+            onRefresh = {
+                onRefresh()
+            },
+            onPagination = onPagination
+        )
     }
 }
 
 @Preview(showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(elements = charactersSample, false, {}, {})
+    HomeScreen(elements = charactersSample, false, {}) {}
 }
