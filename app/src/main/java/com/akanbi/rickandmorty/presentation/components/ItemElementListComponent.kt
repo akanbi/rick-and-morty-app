@@ -1,6 +1,5 @@
 package com.akanbi.rickandmorty.presentation.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -37,7 +36,7 @@ fun ItemElementListComponent(character: Character) {
                     .build(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                placeholder = painterResource(id = R.drawable.ic_launcher_background)
+                placeholder = painterResource(id = R.drawable.placeholder_rickandmorty)
             )
             Column(
                 modifier = Modifier

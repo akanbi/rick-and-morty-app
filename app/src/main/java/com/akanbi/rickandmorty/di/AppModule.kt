@@ -49,15 +49,15 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun buildCharacterApi(retrofit: Retrofit) = retrofit.create(CharacterAPI::class.java)
+    fun buildCharacterApi(retrofit: Retrofit): CharacterAPI = retrofit.create(CharacterAPI::class.java)
 
     @Provides
     @Singleton
-    fun buildLocationApi(retrofit: Retrofit) = retrofit.create(LocationAPI::class.java)
+    fun buildLocationApi(retrofit: Retrofit): LocationAPI = retrofit.create(LocationAPI::class.java)
 
     @Provides
     @Singleton
-    fun buildEpisodeApi(retrofit: Retrofit) = retrofit.create(EpisodeAPI::class.java)
+    fun buildEpisodeApi(retrofit: Retrofit): EpisodeAPI = retrofit.create(EpisodeAPI::class.java)
 }
 
 @Module
