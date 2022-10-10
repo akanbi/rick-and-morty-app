@@ -44,5 +44,5 @@ fun GifImage(
 @Preview(showBackground = true)
 @Composable
 fun GifImagePreview() {
-    GifImage(imageID = R.drawable.ricky_burp)
+    GifImage(imageID = R.drawable.ricky_and_morty_logo)
 }
