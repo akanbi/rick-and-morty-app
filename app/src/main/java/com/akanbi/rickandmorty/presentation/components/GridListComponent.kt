@@ -3,6 +3,7 @@ package com.akanbi.rickandmorty.presentation.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.material.rememberSwipeableState
 import androidx.compose.runtime.Composable
@@ -16,13 +17,14 @@ import timber.log.Timber
 
 @Composable
 fun GridListComponent(
+    modifier: Modifier = Modifier,
     elements: List<Character>,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
     onPagination: () -> Unit
 ) {
     SwipeRefresh(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxWidth(),
         state = rememberSwipeRefreshState(isRefreshing),
         onRefresh = {
             onRefresh()
@@ -50,7 +52,7 @@ fun GridListComponent(
 @Preview(showBackground = true)
 @Composable
 fun GridListPreview() {
-    GridListComponent(elements = charactersSample, false, {}, {})
+    GridListComponent(elements = charactersSample, isRefreshing = false, onRefresh = {}, onPagination = {})
 }
 
 val charactersSample = mutableListOf(

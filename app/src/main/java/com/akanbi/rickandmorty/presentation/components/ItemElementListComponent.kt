@@ -1,8 +1,6 @@
 package com.akanbi.rickandmorty.presentation.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -26,7 +24,8 @@ import com.akanbi.rickandmorty.domain.model.Character
 fun ItemElementListComponent(character: Character) {
     Surface(
         shape = RoundedCornerShape(10.dp),
-        elevation = 4.dp
+        elevation = 4.dp,
+        modifier = Modifier.heightIn(max = 120.dp)
     ) {
         Row {
             AsyncImage(
@@ -36,12 +35,12 @@ fun ItemElementListComponent(character: Character) {
                     .build(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                placeholder = painterResource(id = R.drawable.placeholder_rickandmorty)
+                placeholder = painterResource(id = R.drawable.placeholder_rickandmorty),
             )
             Column(
                 modifier = Modifier
                     .align(CenterVertically)
-                    .padding(8.dp)
+                    .padding(6.dp)
             ) {
                 Text(
                     text = character.name,
@@ -50,15 +49,15 @@ fun ItemElementListComponent(character: Character) {
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    modifier = Modifier.padding(top = 8.dp),
-                    text = character.location,
-                    fontSize = 8.sp,
-                    overflow = TextOverflow.Ellipsis
+                    modifier = Modifier.padding(top = 6.dp),
+                    text = "Location:",
+                    fontSize = 10.sp,
+                    overflow = TextOverflow.Ellipsis,
+                    fontWeight = FontWeight.Bold
                 )
                 Text(
-                    modifier = Modifier.padding(top = 8.dp),
-                    text = character.species,
-                    fontSize = 8.sp,
+                    text = character.location,
+                    fontSize = 10.sp,
                     overflow = TextOverflow.Ellipsis
                 )
             }

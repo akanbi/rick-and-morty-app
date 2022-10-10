@@ -12,8 +12,9 @@ import androidx.compose.ui.Modifier
 import com.akanbi.rickandmorty.common.presentation.observerEvent
 import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.presentation.character.CharacterViewModel
-import com.akanbi.rickandmorty.presentation.components.charactersSample
-import com.akanbi.rickandmorty.presentation.screen.HomeScreen
+import com.akanbi.rickandmorty.presentation.screen.CharacterScreen
+import com.akanbi.rickandmorty.presentation.screen.ErrorScreen
+import com.akanbi.rickandmorty.presentation.screen.SplashScreenComponent
 import com.akanbi.rickandmorty.presentation.theme.RickAndMortyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,20 +26,20 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupSplashScreen()
+
         characterViewModel.list()
         setupObservers()
+    }
 
+    private fun setupSplashScreen() {
         setContent {
             RickAndMortyTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen(
-                        elements = characters,
-                        isRefreshing = isRefreshing,
-                        onRefresh = { characterViewModel.refreshList() }
-                    ) { characterViewModel.list() }
+                    SplashScreenComponent()
                 }
             }
         }
@@ -53,11 +54,16 @@ class MainActivity : ComponentActivity() {
             onSuccess = {
                 characters.addAll(it)
                 setContent {
-                    SetupHomeScreen()
+                    SetupCharacterScreen()
                 }
                 isRefreshing = false
             },
-            onError = {}
+            onError = {
+                characters = mutableListOf()
+                setContent {
+                    ErrorScreen()
+                }
+            }
         )
         swipeRefresh.observe(this@MainActivity) {
             isRefreshing = it
@@ -65,8 +71,8 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun SetupHomeScreen() {
-        HomeScreen(
+    private fun SetupCharacterScreen() {
+        CharacterScreen(
             elements = characters,
             isRefreshing = isRefreshing,
             onRefresh = {
