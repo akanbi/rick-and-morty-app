@@ -17,7 +17,8 @@ class CharacterMapper : GeneralMapper<Result, Character> {
             image = model.image,
             url = model.url,
             species = model.species,
-            location = model.location.name
+            location = model.location.name,
+            status = model.status
         )
 
 }

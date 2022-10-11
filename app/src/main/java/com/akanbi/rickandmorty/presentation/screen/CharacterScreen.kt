@@ -22,17 +22,21 @@ fun CharacterScreen(
     elements: MutableList<Character>,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
-    onPagination: () -> Unit
+    onPagination: () -> Unit,
+    onItemSelected: (character: Character) -> Unit
 ) {
     Scaffold(
         bottomBar = { BottomNavigationComponent() }
     ) { padding ->
         CharacterList(
-            modifier = Modifier.background(color = BackgroundColor).padding(padding),
+            modifier = Modifier
+                .background(color = BackgroundColor)
+                .padding(padding),
             elements = elements,
             isRefreshing = isRefreshing,
             onRefresh = { onRefresh() },
-            onPagination = { onPagination() }
+            onPagination = { onPagination() },
+            onItemSelected = { onItemSelected(it) }
         )
     }
 }
@@ -43,7 +47,8 @@ fun CharacterList(
     elements: MutableList<Character>,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
-    onPagination: () -> Unit
+    onPagination: () -> Unit,
+    onItemSelected: (character: Character) -> Unit
 ) {
     Column(modifier = modifier) {
         Spacer(Modifier.height(16.dp))
@@ -53,7 +58,8 @@ fun CharacterList(
             elements = elements,
             isRefreshing = isRefreshing,
             onRefresh = { onRefresh() },
-            onPagination = { onPagination() }
+            onPagination = { onPagination() },
+            onItemSelected = { onItemSelected(it) }
         )
     }
 }
@@ -61,5 +67,5 @@ fun CharacterList(
 @Preview(showSystemUi = true)
 @Composable
 fun CharacterScreenPreview() {
-    CharacterScreen(elements = charactersSample, false, {}, {})
+    CharacterScreen(elements = charactersSample, false, {}, {}, {})
 }

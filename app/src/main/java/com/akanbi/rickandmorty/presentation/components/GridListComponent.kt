@@ -21,7 +21,8 @@ fun GridListComponent(
     elements: List<Character>,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
-    onPagination: () -> Unit
+    onPagination: () -> Unit,
+    onItemSelected: (character: Character) -> Unit
 ) {
     SwipeRefresh(
         modifier = modifier.fillMaxWidth(),
@@ -42,7 +43,12 @@ fun GridListComponent(
                     Timber.d("Pagination - position: $index list size: ${elements.size - 1}")
                     onPagination()
                 } else
-                    ItemElementListComponent(character = item)
+                    ItemElementListComponent(
+                        character = item,
+                        onItemSelected = {
+                            onItemSelected(item)
+                        }
+                    )
             }
         }
 
@@ -52,7 +58,7 @@ fun GridListComponent(
 @Preview(showBackground = true)
 @Composable
 fun GridListPreview() {
-    GridListComponent(elements = charactersSample, isRefreshing = false, onRefresh = {}, onPagination = {})
+    GridListComponent(elements = charactersSample, isRefreshing = false, onRefresh = {}, onPagination = {}, onItemSelected = {})
 }
 
 val charactersSample = mutableListOf(
@@ -63,7 +69,8 @@ val charactersSample = mutableListOf(
         "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
         "url",
         "Human",
-        "Citadel Rickys"
+        "Citadel Rickys",
+        "Alive"
     ),
     Character(
         2,
@@ -72,7 +79,8 @@ val charactersSample = mutableListOf(
         "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
         "url",
         "Human",
-        "Earth"
+        "Earth",
+        "Alive"
     ),
     Character(
         3,
@@ -81,7 +89,8 @@ val charactersSample = mutableListOf(
         "https://rickandmortyapi.com/api/character/avatar/747.jpeg",
         "url",
         "Mythological Creature",
-        "Unknown"
+        "Unknown",
+        "Dead"
     ),
     Character(
         4,
@@ -90,7 +99,8 @@ val charactersSample = mutableListOf(
         "https://rickandmortyapi.com/api/character/avatar/788.jpeg",
         "url",
         "Alien",
-        "Replacement Dimension"
+        "Replacement Dimension",
+        "Alive"
     ),
     Character(
         5,
@@ -99,6 +109,7 @@ val charactersSample = mutableListOf(
         "https://rickandmortyapi.com/api/character/avatar/503.jpeg",
         "url",
         "Animal",
-        "Earth (Fascist Shrimp Dimension)"
+        "Earth (Fascist Shrimp Dimension)",
+        "Dead"
     )
 )

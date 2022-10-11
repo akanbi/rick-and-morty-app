@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import com.akanbi.rickandmorty.common.presentation.observerEvent
 import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.presentation.character.CharacterViewModel
+import com.akanbi.rickandmorty.presentation.screen.CharacterDetailsScreen
 import com.akanbi.rickandmorty.presentation.screen.CharacterScreen
 import com.akanbi.rickandmorty.presentation.screen.ErrorScreen
 import com.akanbi.rickandmorty.presentation.screen.SplashScreenComponent
@@ -81,8 +82,17 @@ class MainActivity : ComponentActivity() {
             },
             onPagination = {
                 characterViewModel.list()
+            },
+            onItemSelected = {
+                setupCharacterDetailsScreen(character = it)
             }
         )
+    }
+
+    private fun setupCharacterDetailsScreen(character: Character) {
+        setContent { 
+            CharacterDetailsScreen(character = character)
+        }
     }
 
 }

@@ -14,5 +14,6 @@ class Character(
     val image: String,
     val url: String,
     val species: String,
-    val location: String
+    val location: String,
+    val status: String
 )
