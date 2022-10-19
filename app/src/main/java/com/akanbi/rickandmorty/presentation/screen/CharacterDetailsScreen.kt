@@ -21,6 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.akanbi.rickandmorty.R
@@ -33,10 +36,11 @@ import com.akanbi.rickandmorty.presentation.theme.BackgroundColor
 
 @Composable
 fun CharacterDetailsScreen(
+    navController: NavHostController,
     character: Character
 ) {
     Scaffold(
-        bottomBar = { BottomNavigationComponent() }
+        bottomBar = { BottomNavigationComponent(navController) }
     ) { padding ->
         BuildCharacterDetailsScreen(
             character = character,
@@ -191,11 +195,14 @@ fun setStatusIcon(status: String) =
 @Composable
 fun setGenderIcon(gender: String) =
     when (gender) {
-        "Man" -> {
+        "Male" -> {
             painterResource(id = R.drawable.male_icon)
         }
-        else -> {
+        "Female" -> {
             painterResource(id = R.drawable.female_icon)
+        }
+        else -> {
+            painterResource(id = R.drawable.transgender)
         }
     }
 
@@ -214,5 +221,8 @@ fun CardSimplePreview() {
 @Preview(showBackground = true)
 @Composable
 fun CharacterDetailsScreenPreview() {
-    CharacterDetailsScreen(character = charactersSample[0])
+    CharacterDetailsScreen(
+        navController = rememberNavController(),
+        character = charactersSample[0]
+    )
 }

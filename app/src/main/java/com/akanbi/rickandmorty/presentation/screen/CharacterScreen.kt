@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.presentation.components.BottomNavigationComponent
 import com.akanbi.rickandmorty.presentation.components.GridListComponent
@@ -19,6 +21,7 @@ import com.akanbi.rickandmorty.presentation.theme.BackgroundColor
 
 @Composable
 fun CharacterScreen(
+    navController: NavHostController,
     elements: MutableList<Character>,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
@@ -26,7 +29,7 @@ fun CharacterScreen(
     onItemSelected: (character: Character) -> Unit
 ) {
     Scaffold(
-        bottomBar = { BottomNavigationComponent() }
+        bottomBar = { BottomNavigationComponent(navController) }
     ) { padding ->
         CharacterList(
             modifier = Modifier
@@ -67,5 +70,12 @@ fun CharacterList(
 @Preview(showSystemUi = true)
 @Composable
 fun CharacterScreenPreview() {
-    CharacterScreen(elements = charactersSample, false, {}, {}, {})
+    CharacterScreen(
+        rememberNavController(),
+        elements = charactersSample,
+        false,
+        {},
+        {},
+        {}
+    )
 }
