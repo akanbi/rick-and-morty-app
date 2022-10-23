@@ -70,7 +70,8 @@ val charactersSample = mutableListOf(
         "url",
         "Human",
         "Citadel Rickys",
-        "Alive"
+        "Alive",
+        listOf("1")
     ),
     Character(
         2,
@@ -80,7 +81,8 @@ val charactersSample = mutableListOf(
         "url",
         "Human",
         "Earth",
-        "Alive"
+        "Alive",
+        listOf("1")
     ),
     Character(
         3,
@@ -90,7 +92,8 @@ val charactersSample = mutableListOf(
         "url",
         "Mythological Creature",
         "Unknown",
-        "Dead"
+        "Dead",
+        listOf("1")
     ),
     Character(
         4,
@@ -100,7 +103,8 @@ val charactersSample = mutableListOf(
         "url",
         "Alien",
         "Replacement Dimension",
-        "Alive"
+        "Alive",
+        listOf("1")
     ),
     Character(
         5,
@@ -110,6 +114,7 @@ val charactersSample = mutableListOf(
         "url",
         "Animal",
         "Earth (Fascist Shrimp Dimension)",
-        "Dead"
+        "Dead",
+        listOf("1")
     )
 )

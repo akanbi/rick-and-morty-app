@@ -20,6 +20,14 @@ object LocationDestination: RickAndMortyDestinations {
     override val route: String = "location"
 }
 
+object ErrorDestination: RickAndMortyDestinations {
+    override val route: String = "error"
+}
+
+object LoadingDestination: RickAndMortyDestinations {
+    override val route: String = "loading"
+}
+
 object CharacterDetailsDestination: RickAndMortyDestinations {
     override val route: String = "character_details"
     val characterSelectedArg = "character_selected_arg"

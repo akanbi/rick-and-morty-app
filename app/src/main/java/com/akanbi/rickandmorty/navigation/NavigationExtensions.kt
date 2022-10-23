@@ -35,3 +35,7 @@ fun NavHostController.navigateToCharacterScreen() = this.navigateSingleTopTo(Cha
 fun NavHostController.navigateToEpisodeScreen() = this.navigateSingleTopTo(EpisodeDestination.route)
 
 fun NavHostController.navigateToLocationScreen() = this.navigateSingleTopTo(LocationDestination.route)
+
+fun NavHostController.navigateToErrorScreen() = this.navigateSingleTopTo(ErrorDestination.route)
+
+fun NavHostController.navigateToLoadingScreen() = this.navigateSingleTopTo(LoadingDestination.route)

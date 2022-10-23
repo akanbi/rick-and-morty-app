@@ -87,7 +87,8 @@ fun ItemElementListComponentPreview() {
             "url",
             "Human",
             "Citadel of Ricks",
-            "Alive"
+            "Alive",
+            listOf("1")
         ),
         onItemSelected = {}
     )

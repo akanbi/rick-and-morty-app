@@ -1,7 +1,8 @@
 package com.akanbi.rickandmorty.domain.model
 
 import android.os.Parcelable
-import com.akanbi.rickandmorty.network.model.Info
+import com.akanbi.rickandmorty.network.model.character.Info
+import com.akanbi.rickandmorty.presentation.components.model.SimpleElement
 import kotlinx.android.parcel.Parcelize
 
 class CharacterUI(
@@ -18,5 +19,6 @@ data class Character(
     val url: String,
     val species: String,
     val location: String,
-    val status: String
+    val status: String,
+    val episodeIds: List<String>
 ) : Parcelable

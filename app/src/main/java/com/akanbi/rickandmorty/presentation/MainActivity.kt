@@ -20,10 +20,7 @@ import com.akanbi.rickandmorty.common.presentation.observerEvent
 import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.navigation.*
 import com.akanbi.rickandmorty.presentation.character.CharacterViewModel
-import com.akanbi.rickandmorty.presentation.screen.CharacterDetailsScreen
-import com.akanbi.rickandmorty.presentation.screen.CharacterScreen
-import com.akanbi.rickandmorty.presentation.screen.ErrorScreen
-import com.akanbi.rickandmorty.presentation.screen.SplashScreenComponent
+import com.akanbi.rickandmorty.presentation.screen.*
 import com.akanbi.rickandmorty.presentation.theme.RickAndMortyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -72,6 +69,12 @@ class MainActivity : ComponentActivity() {
                     CharacterDetailsScreen(navController = navController, character = characterSelected)
                 }
             }
+            composable(route = ErrorDestination.route) {
+                ErrorScreen()
+            }
+            composable(route = LoadingDestination.route) {
+                LoadingScreen()
+            }
         }
     }
 
@@ -101,9 +104,7 @@ class MainActivity : ComponentActivity() {
             },
             onError = {
                 characters = mutableListOf()
-                setContent {
-                    ErrorScreen()
-                }
+                navController.navigateToErrorScreen()
             }
         )
         swipeRefresh.observe(this@MainActivity) {
@@ -133,11 +134,5 @@ class MainActivity : ComponentActivity() {
             }
         )
     }
-
-//    private fun setupCharacterDetailsScreen(character: Character) {
-//        setContent {
-//            CharacterDetailsScreen(character = character)
-//        }
-//    }
 
 }

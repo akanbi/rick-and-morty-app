@@ -15,19 +15,27 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.akanbi.rickandmorty.R
+import com.akanbi.rickandmorty.common.presentation.observerEvent
 import com.akanbi.rickandmorty.domain.model.Character
+import com.akanbi.rickandmorty.navigation.navigateToErrorScreen
+import com.akanbi.rickandmorty.navigation.navigateToLoadingScreen
+import com.akanbi.rickandmorty.presentation.character.CharacterDetailsViewModel
 import com.akanbi.rickandmorty.presentation.components.BottomNavigationComponent
 import com.akanbi.rickandmorty.presentation.components.SimpleListComponent
 import com.akanbi.rickandmorty.presentation.components.charactersSample
@@ -37,13 +45,34 @@ import com.akanbi.rickandmorty.presentation.theme.BackgroundColor
 @Composable
 fun CharacterDetailsScreen(
     navController: NavHostController,
-    character: Character
+    character: Character,
+    detailsViewModel: CharacterDetailsViewModel = hiltViewModel()
+) {
+    val simpleElementList = mutableListOf<SimpleElement>()
+
+    detailsViewModel.listEpisodesBy(character.episodeIds)
+
+    setupObservers(
+        LocalLifecycleOwner.current,
+        navController,
+        detailsViewModel,
+        simpleElementList
+    )
+
+}
+
+@Composable
+private fun SuccessState(
+    navController: NavHostController,
+    character: Character,
+    simpleElementList: MutableList<SimpleElement>
 ) {
     Scaffold(
         bottomBar = { BottomNavigationComponent(navController) }
     ) { padding ->
         BuildCharacterDetailsScreen(
             character = character,
+            simpleElements = simpleElementList,
             modifier = Modifier
                 .background(color = BackgroundColor)
                 .padding(padding)
@@ -51,9 +80,31 @@ fun CharacterDetailsScreen(
     }
 }
 
+fun setupObservers(
+    lifecycleOwner: LifecycleOwner,
+    navController: NavHostController,
+    detailsViewModel: CharacterDetailsViewModel,
+    elements: MutableList<SimpleElement>
+) {
+    detailsViewModel.episodesList.observerEvent(
+        lifecycleOwner,
+        onLoading = {
+            navController.navigateToLoadingScreen()
+        },
+        onSuccess = {
+            elements.addAll(it)
+
+        },
+        onError = {
+            navController.navigateToErrorScreen()
+        }
+    )
+}
+
 @Composable
 fun BuildCharacterDetailsScreen(
     character: Character,
+    simpleElements: MutableList<SimpleElement>,
     modifier: Modifier
 ) {
     Column(
@@ -111,23 +162,20 @@ fun BuildCharacterDetailsScreen(
                 }
             )
         }
-        Surface(
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(10.dp),
-            elevation = 4.dp
-        ) {
-            SimpleListComponent(
-                list = listOf(
-                    SimpleElement("S01E01", "Season 1 Episode 1"),
-                    SimpleElement("S01E02", "Season 1 Episode 2"),
-                    SimpleElement("S01E03", "Season 1 Episode 3"),
-                    SimpleElement("S02E01", "Season 2 Episode 1"),
-                    SimpleElement("S02E02", "Season 2 Episode 2")
-                )
-            )
-        }
+        BuildEpisodeList(simpleElements)
+    }
+}
+
+@Composable
+private fun BuildEpisodeList(simpleElements: MutableList<SimpleElement>) {
+    Surface(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(10.dp),
+        elevation = 4.dp
+    ) {
+        SimpleListComponent(list = simpleElements)
     }
 }
 

@@ -1,8 +1,8 @@
-package com.akanbi.rickandmorty.network.model
+package com.akanbi.rickandmorty.network.model.character
 
 import com.google.gson.annotations.SerializedName
 
-data class Location(
+data class Origin(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")

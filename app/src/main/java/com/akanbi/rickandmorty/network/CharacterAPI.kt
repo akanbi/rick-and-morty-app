@@ -2,7 +2,7 @@ package com.akanbi.rickandmorty.network
 
 import com.akanbi.rickandmorty.domain.type.CharacterGender
 import com.akanbi.rickandmorty.domain.type.CharacterStatus
-import com.akanbi.rickandmorty.network.model.CharacterResponse
+import com.akanbi.rickandmorty.network.model.character.CharacterResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
