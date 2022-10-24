@@ -5,16 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.akanbi.rickandmorty.common.presentation.observerEvent
 import com.akanbi.rickandmorty.domain.model.Character
@@ -66,7 +63,7 @@ class MainActivity : ComponentActivity() {
                         CharacterDetailsDestination.characterSelectedArg
                     )
                 if (characterSelected != null) {
-                    CharacterDetailsScreen(navController = navController, character = characterSelected)
+                    CharacterDetailsScreen(navController = navController, characterSelected = characterSelected)
                 }
             }
             composable(route = ErrorDestination.route) {
