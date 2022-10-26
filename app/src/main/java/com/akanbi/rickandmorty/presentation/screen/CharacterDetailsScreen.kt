@@ -41,12 +41,9 @@ import com.akanbi.rickandmorty.presentation.theme.BackgroundColor
 @Composable
 fun CharacterDetailsScreen(
     navController: NavHostController,
-    characterSelected: Character,
-    detailsViewModel: CharacterDetailsViewModel = hiltViewModel()
+    detailsViewModel: CharacterDetailsViewModel
 ) {
-    detailsViewModel.character = characterSelected
-    detailsViewModel.listEpisodesBy(characterSelected)
-    val state by detailsViewModel.state.collectAsState(CharacterDetailsUIState.initial())
+    val state by detailsViewModel.state.collectAsState()
 
     when {
         state.isLoading -> {
@@ -58,7 +55,7 @@ fun CharacterDetailsScreen(
         state.episodes.isNotEmpty() -> {
             SuccessState(
                 navController = navController,
-                character = characterSelected,
+                character = state.characterSelected,
                 simpleElementList = state.episodes as MutableList<SimpleElement>
             )
         }
@@ -250,11 +247,10 @@ fun CardSimplePreview() {
     CharacterElementComponent(title = "Human", subtitle = "Species")
 }
 
-@Preview(showBackground = true)
-@Composable
-fun CharacterDetailsScreenPreview() {
-    CharacterDetailsScreen(
-        navController = rememberNavController(),
-        characterSelected = charactersSample[0]
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun CharacterDetailsScreenPreview() {
+//    CharacterDetailsScreen(
+//        navController = rememberNavController(),
+//    )
+//}

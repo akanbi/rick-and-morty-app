@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.akanbi.rickandmorty.common.presentation.observerEvent
+import com.akanbi.rickandmorty.di.characterDetailsViewModel
 import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.navigation.*
 import com.akanbi.rickandmorty.presentation.character.CharacterViewModel
@@ -63,7 +64,14 @@ class MainActivity : ComponentActivity() {
                         CharacterDetailsDestination.characterSelectedArg
                     )
                 if (characterSelected != null) {
-                    CharacterDetailsScreen(navController = navController, characterSelected = characterSelected)
+                    val detailsViewModel = characterDetailsViewModel(
+                        viewModelStoreOwner = it,
+                        character = characterSelected
+                    )
+                    CharacterDetailsScreen(
+                        navController = navController,
+                        detailsViewModel = detailsViewModel
+                    )
                 }
             }
             composable(route = ErrorDestination.route) {
