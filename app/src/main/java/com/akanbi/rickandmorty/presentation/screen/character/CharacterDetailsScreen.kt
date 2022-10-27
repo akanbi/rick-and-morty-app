@@ -1,4 +1,4 @@
-package com.akanbi.rickandmorty.presentation.screen
+package com.akanbi.rickandmorty.presentation.screen.character
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,19 +23,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.akanbi.rickandmorty.R
 import com.akanbi.rickandmorty.domain.model.Character
-import com.akanbi.rickandmorty.presentation.character.CharacterDetailsUIState
 import com.akanbi.rickandmorty.presentation.character.CharacterDetailsViewModel
 import com.akanbi.rickandmorty.presentation.components.BottomNavigationComponent
 import com.akanbi.rickandmorty.presentation.components.SimpleListComponent
-import com.akanbi.rickandmorty.presentation.components.charactersSample
 import com.akanbi.rickandmorty.presentation.components.model.SimpleElement
+import com.akanbi.rickandmorty.presentation.screen.ErrorScreen
+import com.akanbi.rickandmorty.presentation.screen.LoadingScreen
 import com.akanbi.rickandmorty.presentation.theme.BackgroundColor
 
 @Composable
