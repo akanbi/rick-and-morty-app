@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,6 +20,7 @@ import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.navigation.*
 import com.akanbi.rickandmorty.presentation.character.CharacterViewModel
 import com.akanbi.rickandmorty.presentation.screen.*
+import com.akanbi.rickandmorty.presentation.splash.SplashScreenViewModel
 import com.akanbi.rickandmorty.presentation.theme.RickAndMortyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,13 +49,14 @@ class MainActivity : ComponentActivity() {
             startDestination = SplashScreenDestination.route
         ) {
             composable(route = SplashScreenDestination.route) {
-                SetupSplashScreen()
+                val splashScreenViewModel = hiltViewModel<SplashScreenViewModel>()
+                SetupSplashScreen(navController, splashScreenViewModel)
             }
             composable(route = CharacterDestination.route) {
                 SetupCharacterScreen(navController)
             }
             composable(route = EpisodeDestination.route) {
-                SplashScreenComponent()
+
             }
             composable(route = LocationDestination.route) {
 
@@ -84,13 +87,13 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun SetupSplashScreen() {
+    private fun SetupSplashScreen(navController: NavHostController, splashScreenViewModel: SplashScreenViewModel) {
         RickAndMortyTheme {
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colors.background
             ) {
-                SplashScreenComponent()
+                SplashScreenComponent(navController, splashScreenViewModel)
             }
         }
     }

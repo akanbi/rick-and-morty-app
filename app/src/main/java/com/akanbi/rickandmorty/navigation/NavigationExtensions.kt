@@ -39,3 +39,6 @@ fun NavHostController.navigateToLocationScreen() = this.navigateSingleTopTo(Loca
 fun NavHostController.navigateToErrorScreen() = this.navigateSingleTopTo(ErrorDestination.route)
 
 fun NavHostController.navigateToLoadingScreen() = this.navigateSingleTopTo(LoadingDestination.route)
+
+fun NavHostController.isRouteBy(route: String) =
+    this.currentBackStackEntry?.destination?.route == route
