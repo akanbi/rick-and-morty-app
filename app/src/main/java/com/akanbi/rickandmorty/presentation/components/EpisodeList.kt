@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.akanbi.rickandmorty.presentation.components.model.SimpleElement
 
 @Composable
-fun SimpleListComponent(
+fun EpisodeListComponent(
     list: List<SimpleElement>
 ) {
     LazyColumn(
@@ -27,13 +27,13 @@ fun SimpleListComponent(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(list) {
-            SimpleElementComponent(title = it.title, subtitle = it.subtitle)
+            EpisodeElementComponent(title = it.title, subtitle = it.subtitle)
         }
     }
 }
 
 @Composable
-fun SimpleElementComponent(
+fun EpisodeElementComponent(
     title: String,
     subtitle: String,
     isIcon: Boolean = true,
@@ -79,14 +79,14 @@ private fun BuildIconOnComponent(
 @Preview(showBackground = true)
 @Composable
 fun SimpleElementPreview() {
-    SimpleElementComponent(title = "S01E07", subtitle = "Rick and Morty Episode")
+    EpisodeElementComponent(title = "S01E07", subtitle = "Rick and Morty Episode")
 
 }
 
 @Preview(showBackground = true)
 @Composable
 fun SimpleListComponentPreview() {
-    SimpleListComponent(
+    EpisodeListComponent(
         list = listOf(
             SimpleElement("S01E01", "Season 1 Episode 1"),
             SimpleElement("S01E02", "Season 1 Episode 2"),

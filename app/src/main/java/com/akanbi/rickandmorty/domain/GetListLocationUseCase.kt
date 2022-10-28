@@ -1,22 +1,65 @@
 package com.akanbi.rickandmorty.domain
 
+import com.akanbi.rickandmorty.common.network.ResultType
+import com.akanbi.rickandmorty.common.network.handleResultType
 import com.akanbi.rickandmorty.data.LocationRepository
 import com.akanbi.rickandmorty.domain.core.ParametersDTO
 import com.akanbi.rickandmorty.domain.core.UseCase
+import com.akanbi.rickandmorty.domain.mapper.LocationMapper
+import com.akanbi.rickandmorty.domain.model.LocationModel
+import com.akanbi.rickandmorty.domain.model.LocationUI
 import com.akanbi.rickandmorty.network.ResponseError
-import com.akanbi.rickandmorty.network.model.character.Location
+import com.akanbi.rickandmorty.network.model.location.LocationResponse
+import com.akanbi.rickandmorty.network.model.location.Result
 import javax.inject.Inject
 
 class GetListLocationUseCase @Inject constructor(
-    private val repository: LocationRepository
-) : UseCase<List<Location>> {
+    private val repository: LocationRepository,
+    private val mapper: LocationMapper
+) : UseCase<LocationUI> {
 
     override suspend fun execute(
         parameters: ParametersDTO,
-        onSuccess: (List<Location>) -> Unit,
+        onSuccess: (LocationUI) -> Unit,
         onError: (ResponseError) -> Unit
     ) {
-        TODO("Not yet implemented")
+        val result: ResultType<LocationResponse> = repository.list(1)
+
+        result.handleResultType(
+            success = {
+                successFlow(it, onSuccess, onError)
+            },
+            error = {
+                onError(it)
+            }
+        )
+    }
+
+    private fun successFlow(
+        response: LocationResponse,
+        onSuccess: (LocationUI) -> Unit,
+        onError: (ResponseError) -> Unit
+    ) {
+        if (response.results.isEmpty())
+            onError(ResponseError())
+        else {
+            val locationUI = buildLocationUI(response)
+            onSuccess(locationUI)
+        }
+    }
+
+    private fun buildLocationUI(response: LocationResponse) =
+        LocationUI(
+            locationList = buildLocationList(response.results),
+            pagination = response.info
+        )
+
+    private fun buildLocationList(results: List<Result>): MutableList<LocationModel> {
+        val locations = mutableListOf<LocationModel>()
+        results.forEach { currentLocation ->
+            locations.add(mapper.convert(currentLocation))
+        }
+        return locations
     }
 
 }

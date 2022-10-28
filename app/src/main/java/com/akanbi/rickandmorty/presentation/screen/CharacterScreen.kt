@@ -14,7 +14,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.presentation.components.BottomNavigationComponent
-import com.akanbi.rickandmorty.presentation.components.GridListComponent
+import com.akanbi.rickandmorty.presentation.components.CharacterGridList
 import com.akanbi.rickandmorty.presentation.components.SearchBar
 import com.akanbi.rickandmorty.presentation.components.charactersSample
 import com.akanbi.rickandmorty.presentation.theme.BackgroundColor
@@ -57,7 +57,7 @@ fun CharacterList(
         Spacer(Modifier.height(16.dp))
         SearchBar(Modifier.padding(horizontal = 16.dp))
         Spacer(Modifier.height(4.dp))
-        GridListComponent(
+        CharacterGridList(
             elements = elements,
             isRefreshing = isRefreshing,
             onRefresh = { onRefresh() },

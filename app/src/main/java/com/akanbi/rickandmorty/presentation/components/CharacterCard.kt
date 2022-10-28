@@ -22,7 +22,7 @@ import com.akanbi.rickandmorty.R
 import com.akanbi.rickandmorty.domain.model.Character
 
 @Composable
-fun ItemElementListComponent(
+fun CharacterCard(
     character: Character,
     onItemSelected: (character: Character) -> Unit
 ) {
@@ -78,7 +78,7 @@ fun ItemElementListComponent(
 @Preview(showBackground = true)
 @Composable
 fun ItemElementListComponentPreview() {
-    ItemElementListComponent(
+    CharacterCard(
         character = Character(
             1,
             "Rick Sanchez",

@@ -69,6 +69,7 @@ fun BottomNavigationComponent(
             },
             selected = false,
             onClick = {
+                popBackStackWhenCharacterDetailsRoute(navController)
                 navController.navigateToLocationScreen()
             }
         )

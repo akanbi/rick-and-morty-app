@@ -34,8 +34,7 @@ class CharacterDetailsViewModel @AssistedInject constructor(
         }
     }
 
-    private fun listEpisodesBy(characterSelected: Character) {
-        viewModelScope.launch(providerContext.main) {
+    private suspend fun listEpisodesBy(characterSelected: Character) {
             useCase.execute(
                 parameters = ParametersDTO {
                     add("ids", characterSelected.episodeIds)
@@ -50,7 +49,6 @@ class CharacterDetailsViewModel @AssistedInject constructor(
                     sendEvent(CharacterDetailsUIEvent.OnError(isError = true))
                 }
             )
-        }
     }
 
     private class CharacterDetailsReducer(initialState: CharacterDetailsUIState) :

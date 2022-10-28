@@ -2,10 +2,8 @@ package com.akanbi.rickandmorty.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.material.rememberSwipeableState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,7 +14,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import timber.log.Timber
 
 @Composable
-fun GridListComponent(
+fun CharacterGridList(
     modifier: Modifier = Modifier,
     elements: List<Character>,
     isRefreshing: Boolean,
@@ -43,7 +41,7 @@ fun GridListComponent(
                     Timber.d("Pagination - position: $index list size: ${elements.size - 1}")
                     onPagination()
                 } else
-                    ItemElementListComponent(
+                    CharacterCard(
                         character = item,
                         onItemSelected = {
                             onItemSelected(item)
@@ -58,7 +56,7 @@ fun GridListComponent(
 @Preview(showBackground = true)
 @Composable
 fun GridListPreview() {
-    GridListComponent(elements = charactersSample, isRefreshing = false, onRefresh = {}, onPagination = {}, onItemSelected = {})
+    CharacterGridList(elements = charactersSample, isRefreshing = false, onRefresh = {}, onPagination = {}, onItemSelected = {})
 }
 
 val charactersSample = mutableListOf(

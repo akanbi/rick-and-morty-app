@@ -1,6 +1,7 @@
 package com.akanbi.rickandmorty.domain.model
 
-import com.akanbi.rickandmorty.network.model.character.Info
+import com.akanbi.rickandmorty.network.model.location.Info
+
 
 data class LocationModel(
     val id: Int,

@@ -16,7 +16,7 @@ import com.akanbi.rickandmorty.R
 fun SearchBar(
     modifier: Modifier = Modifier
 ) {
-    TextField(
+    OutlinedTextField(
         value = "",
         onValueChange = {},
         leadingIcon = {

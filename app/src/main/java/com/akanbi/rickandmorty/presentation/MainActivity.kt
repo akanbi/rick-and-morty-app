@@ -19,6 +19,7 @@ import com.akanbi.rickandmorty.di.characterDetailsViewModel
 import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.navigation.*
 import com.akanbi.rickandmorty.presentation.character.CharacterViewModel
+import com.akanbi.rickandmorty.presentation.location.LocationViewModel
 import com.akanbi.rickandmorty.presentation.screen.*
 import com.akanbi.rickandmorty.presentation.splash.SplashScreenViewModel
 import com.akanbi.rickandmorty.presentation.theme.RickAndMortyTheme
@@ -59,7 +60,11 @@ class MainActivity : ComponentActivity() {
 
             }
             composable(route = LocationDestination.route) {
-
+                val locationViewModel = hiltViewModel<LocationViewModel>()
+                LocationScreen(
+                    navController = navController,
+                    locationViewModel = locationViewModel
+                )
             }
             composable(route = CharacterDetailsDestination.route) {
                 val characterSelected = navController
