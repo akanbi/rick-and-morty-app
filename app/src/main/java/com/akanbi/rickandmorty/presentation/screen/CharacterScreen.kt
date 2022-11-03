@@ -10,29 +10,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.presentation.components.BottomNavigationComponent
-import com.akanbi.rickandmorty.presentation.components.GridListComponent
+import com.akanbi.rickandmorty.presentation.components.CharacterGridList
 import com.akanbi.rickandmorty.presentation.components.SearchBar
 import com.akanbi.rickandmorty.presentation.components.charactersSample
 import com.akanbi.rickandmorty.presentation.theme.BackgroundColor
 
 @Composable
 fun CharacterScreen(
+    navController: NavHostController,
     elements: MutableList<Character>,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
-    onPagination: () -> Unit
+    onPagination: () -> Unit,
+    onItemSelected: (character: Character) -> Unit
 ) {
     Scaffold(
-        bottomBar = { BottomNavigationComponent() }
+        bottomBar = { BottomNavigationComponent(navController) }
     ) { padding ->
         CharacterList(
-            modifier = Modifier.background(color = BackgroundColor).padding(padding),
+            modifier = Modifier
+                .background(color = BackgroundColor)
+                .padding(padding),
             elements = elements,
             isRefreshing = isRefreshing,
             onRefresh = { onRefresh() },
-            onPagination = { onPagination() }
+            onPagination = { onPagination() },
+            onItemSelected = { onItemSelected(it) }
         )
     }
 }
@@ -43,17 +50,19 @@ fun CharacterList(
     elements: MutableList<Character>,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
-    onPagination: () -> Unit
+    onPagination: () -> Unit,
+    onItemSelected: (character: Character) -> Unit
 ) {
     Column(modifier = modifier) {
         Spacer(Modifier.height(16.dp))
         SearchBar(Modifier.padding(horizontal = 16.dp))
         Spacer(Modifier.height(4.dp))
-        GridListComponent(
+        CharacterGridList(
             elements = elements,
             isRefreshing = isRefreshing,
             onRefresh = { onRefresh() },
-            onPagination = { onPagination() }
+            onPagination = { onPagination() },
+            onItemSelected = { onItemSelected(it) }
         )
     }
 }
@@ -61,5 +70,12 @@ fun CharacterList(
 @Preview(showSystemUi = true)
 @Composable
 fun CharacterScreenPreview() {
-    CharacterScreen(elements = charactersSample, false, {}, {})
+    CharacterScreen(
+        rememberNavController(),
+        elements = charactersSample,
+        false,
+        {},
+        {},
+        {}
+    )
 }

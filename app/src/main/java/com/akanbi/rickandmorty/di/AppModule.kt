@@ -3,6 +3,7 @@ package com.akanbi.rickandmorty.di
 import com.akanbi.rickandmorty.BuildConfig
 import com.akanbi.rickandmorty.common.ProviderContext
 import com.akanbi.rickandmorty.domain.mapper.CharacterMapper
+import com.akanbi.rickandmorty.domain.mapper.LocationMapper
 import com.akanbi.rickandmorty.network.CharacterAPI
 import com.akanbi.rickandmorty.network.EpisodeAPI
 import com.akanbi.rickandmorty.network.LocationAPI
@@ -66,6 +67,9 @@ object MapperModule {
 
     @Provides
     fun bindCharacterMapper() = CharacterMapper()
+
+    @Provides
+    fun bindLocationMapper() = LocationMapper()
 }
 
 @Module

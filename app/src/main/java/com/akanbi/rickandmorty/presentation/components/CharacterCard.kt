@@ -1,5 +1,6 @@
 package com.akanbi.rickandmorty.presentation.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
@@ -21,11 +22,18 @@ import com.akanbi.rickandmorty.R
 import com.akanbi.rickandmorty.domain.model.Character
 
 @Composable
-fun ItemElementListComponent(character: Character) {
+fun CharacterCard(
+    character: Character,
+    onItemSelected: (character: Character) -> Unit
+) {
     Surface(
         shape = RoundedCornerShape(10.dp),
         elevation = 4.dp,
-        modifier = Modifier.heightIn(max = 120.dp)
+        modifier = Modifier
+            .heightIn(max = 120.dp)
+            .clickable {
+                onItemSelected(character)
+            }
     ) {
         Row {
             AsyncImage(
@@ -70,15 +78,18 @@ fun ItemElementListComponent(character: Character) {
 @Preview(showBackground = true)
 @Composable
 fun ItemElementListComponentPreview() {
-    ItemElementListComponent(
-        Character(
+    CharacterCard(
+        character = Character(
             1,
             "Rick Sanchez",
             "Male",
             "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
             "url",
             "Human",
-            "Citadel of Ricks"
-        )
+            "Citadel of Ricks",
+            "Alive",
+            listOf("1")
+        ),
+        onItemSelected = {}
     )
 }

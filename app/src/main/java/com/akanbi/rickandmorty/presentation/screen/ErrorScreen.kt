@@ -23,6 +23,7 @@ import com.akanbi.rickandmorty.presentation.theme.Purple700
 fun ErrorScreen() {
     Column(
         Modifier
+            .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
                     listOf(Color.Green, Color.Yellow)
@@ -37,7 +38,8 @@ fun ErrorScreen() {
             modifier = Modifier.size(200.dp)
         )
         Text(text = "OPS! ", fontWeight = FontWeight.Bold, fontSize = 20.sp)
-        Text(text = "Occurred one error! Attempt ", fontSize = 16.sp)
+        Text(text = "Something went wrong, please try again later.", fontSize = 16.sp)
+        // Implementar botão de retry
     }
 }
 

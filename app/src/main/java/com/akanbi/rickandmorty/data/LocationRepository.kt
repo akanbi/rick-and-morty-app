@@ -8,8 +8,8 @@ class LocationRepository @Inject constructor(
     private val api: LocationAPI
 ) {
 
-    suspend fun list() = safeApiCall {
-        api.list()
+    suspend fun list(page: Int) = safeApiCall {
+        api.list(page)
     }
 
     suspend fun findById(id: String) = safeApiCall {

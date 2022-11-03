@@ -6,4 +6,6 @@
     <string name="character">Character</string>
     <string name="episode">Episode</string>
     <string name="location">Location</string>
+    <string name="species">Species</string>
+    <string name="gender">Gender</string>
 </resources>

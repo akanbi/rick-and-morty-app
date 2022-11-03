@@ -13,10 +13,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.akanbi.rickandmorty.R
+import com.akanbi.rickandmorty.navigation.*
 
 @Composable
-fun BottomNavigationComponent(modifier: Modifier = Modifier) {
+fun BottomNavigationComponent(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
     BottomNavigation(
         modifier = modifier
     ) {
@@ -31,7 +37,10 @@ fun BottomNavigationComponent(modifier: Modifier = Modifier) {
                 Text(text = stringResource(id = R.string.character))
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                popBackStackWhenCharacterDetailsRoute(navController)
+                navController.navigateToCharacterScreen()
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -44,7 +53,9 @@ fun BottomNavigationComponent(modifier: Modifier = Modifier) {
                 Text(text = stringResource(id = R.string.episode))
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                navController.navigateToEpisodeScreen()
+            }
         )
         BottomNavigationItem(
             icon = {
@@ -57,13 +68,21 @@ fun BottomNavigationComponent(modifier: Modifier = Modifier) {
                 Text(text = stringResource(id = R.string.location))
             },
             selected = false,
-            onClick = {}
+            onClick = {
+                popBackStackWhenCharacterDetailsRoute(navController)
+                navController.navigateToLocationScreen()
+            }
         )
     }
+}
+
+private fun popBackStackWhenCharacterDetailsRoute(navController: NavHostController) {
+    if (navController.isRouteBy(CharacterDetailsDestination.route))
+        navController.popBackStack()
 }
 
 @Preview(showBackground = true)
 @Composable
 fun BottomNavigationPreview() {
-    BottomNavigationComponent()
+    BottomNavigationComponent(rememberNavController())
 }

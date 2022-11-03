@@ -14,4 +14,6 @@ class ParametersDTO(block: ParametersDTO.() -> Unit) {
     private fun build() = params
 
     fun value(key: String) = build()[key].toString()
+
+    fun valueAsList(key: String) = build()[key] as List<*>
 }

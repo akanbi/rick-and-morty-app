@@ -2,10 +2,8 @@ package com.akanbi.rickandmorty.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.material.rememberSwipeableState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,12 +14,13 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import timber.log.Timber
 
 @Composable
-fun GridListComponent(
+fun CharacterGridList(
     modifier: Modifier = Modifier,
     elements: List<Character>,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
-    onPagination: () -> Unit
+    onPagination: () -> Unit,
+    onItemSelected: (character: Character) -> Unit
 ) {
     SwipeRefresh(
         modifier = modifier.fillMaxWidth(),
@@ -42,7 +41,12 @@ fun GridListComponent(
                     Timber.d("Pagination - position: $index list size: ${elements.size - 1}")
                     onPagination()
                 } else
-                    ItemElementListComponent(character = item)
+                    CharacterCard(
+                        character = item,
+                        onItemSelected = {
+                            onItemSelected(item)
+                        }
+                    )
             }
         }
 
@@ -52,7 +56,7 @@ fun GridListComponent(
 @Preview(showBackground = true)
 @Composable
 fun GridListPreview() {
-    GridListComponent(elements = charactersSample, isRefreshing = false, onRefresh = {}, onPagination = {})
+    CharacterGridList(elements = charactersSample, isRefreshing = false, onRefresh = {}, onPagination = {}, onItemSelected = {})
 }
 
 val charactersSample = mutableListOf(
@@ -63,7 +67,9 @@ val charactersSample = mutableListOf(
         "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
         "url",
         "Human",
-        "Citadel Rickys"
+        "Citadel Rickys",
+        "Alive",
+        listOf("1")
     ),
     Character(
         2,
@@ -72,7 +78,9 @@ val charactersSample = mutableListOf(
         "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
         "url",
         "Human",
-        "Earth"
+        "Earth",
+        "Alive",
+        listOf("1")
     ),
     Character(
         3,
@@ -81,7 +89,9 @@ val charactersSample = mutableListOf(
         "https://rickandmortyapi.com/api/character/avatar/747.jpeg",
         "url",
         "Mythological Creature",
-        "Unknown"
+        "Unknown",
+        "Dead",
+        listOf("1")
     ),
     Character(
         4,
@@ -90,7 +100,9 @@ val charactersSample = mutableListOf(
         "https://rickandmortyapi.com/api/character/avatar/788.jpeg",
         "url",
         "Alien",
-        "Replacement Dimension"
+        "Replacement Dimension",
+        "Alive",
+        listOf("1")
     ),
     Character(
         5,
@@ -99,6 +111,8 @@ val charactersSample = mutableListOf(
         "https://rickandmortyapi.com/api/character/avatar/503.jpeg",
         "url",
         "Animal",
-        "Earth (Fascist Shrimp Dimension)"
+        "Earth (Fascist Shrimp Dimension)",
+        "Dead",
+        listOf("1")
     )
 )

@@ -9,8 +9,8 @@ import com.akanbi.rickandmorty.domain.mapper.CharacterMapper
 import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.domain.model.CharacterUI
 import com.akanbi.rickandmorty.network.ResponseError
-import com.akanbi.rickandmorty.network.model.CharacterResponse
-import com.akanbi.rickandmorty.network.model.Result
+import com.akanbi.rickandmorty.network.model.character.CharacterResponse
+import com.akanbi.rickandmorty.network.model.character.Result
 import javax.inject.Inject
 
 class GetListCharacterUseCase @Inject constructor(
@@ -44,7 +44,9 @@ class GetListCharacterUseCase @Inject constructor(
         if (response.results.isEmpty() && currentPage == 1)
             onError(ResponseError())
         else if (currentPage != response.info.pages + 1) {
-            onSuccess(buildCharacterUI(response))
+            val characterUI = buildCharacterUI(response)
+            onSuccess(characterUI)
+
             incrementPage()
         } else onSuccess(CharacterUI())
     }
