@@ -21,11 +21,13 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.akanbi.rickandmorty.R
 
 @Composable
-fun LoadingScreen() {
+fun LoadingScreen(
+    modifier: Modifier = Modifier
+) {
     Column(
-        Modifier
+        modifier = modifier
             .fillMaxSize()
-            .background(color = Color.Black.copy(alpha = 0.5f)),
+            .background(color = Color.Black.copy(alpha = 0.4f)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

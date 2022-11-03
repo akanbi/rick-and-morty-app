@@ -19,7 +19,11 @@ fun LocationScreen(
     val state by locationViewModel.state.collectAsState()
     when {
         state.isLoading -> {
-            LoadingScreen()
+            Scaffold(
+                bottomBar = { BottomNavigationComponent(navController) }
+            ) { padding ->
+                LoadingScreen(modifier = Modifier.padding(padding))
+            }
         }
         state.isError -> {
             ErrorScreen()

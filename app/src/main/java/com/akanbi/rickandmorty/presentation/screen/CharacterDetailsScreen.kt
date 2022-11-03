@@ -43,7 +43,11 @@ fun CharacterDetailsScreen(
 
     when {
         state.isLoading -> {
-            LoadingScreen()
+            Scaffold(
+                bottomBar = { BottomNavigationComponent(navController) }
+            ) { padding ->
+                LoadingScreen(modifier = Modifier.padding(padding))
+            }
         }
         state.isError -> {
             ErrorScreen()
