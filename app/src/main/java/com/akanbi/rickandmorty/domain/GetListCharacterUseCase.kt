@@ -10,7 +10,7 @@ import com.akanbi.rickandmorty.domain.model.Character
 import com.akanbi.rickandmorty.domain.model.CharacterUI
 import com.akanbi.rickandmorty.network.ResponseError
 import com.akanbi.rickandmorty.network.model.character.CharacterResponse
-import com.akanbi.rickandmorty.network.model.character.Result
+import com.akanbi.rickandmorty.network.model.character.ResultCharacter
 import javax.inject.Inject
 
 class GetListCharacterUseCase @Inject constructor(
@@ -57,7 +57,7 @@ class GetListCharacterUseCase @Inject constructor(
             pagination = response.info
         )
 
-    private fun buildCharacterList(results: List<Result>): MutableList<Character> {
+    private fun buildCharacterList(results: List<ResultCharacter>): MutableList<Character> {
         val characterList = mutableListOf<Character>()
         results.forEach { result ->
             characterList.add(mapper.convert(result))

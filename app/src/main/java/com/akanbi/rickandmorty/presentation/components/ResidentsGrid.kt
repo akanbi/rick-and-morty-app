@@ -24,7 +24,9 @@ import com.akanbi.rickandmorty.R
 import com.akanbi.rickandmorty.presentation.components.model.Residents
 
 @Composable
-fun ResidentsGrid(residentsUrl: List<Residents>) {
+fun ResidentsGrid(
+    residentsUrl: List<Residents>
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(5),
         state = rememberLazyGridState(),

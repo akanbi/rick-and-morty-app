@@ -1,11 +1,11 @@
 package com.akanbi.rickandmorty.domain.mapper
 
 import com.akanbi.rickandmorty.domain.model.LocationModel
-import com.akanbi.rickandmorty.network.model.location.Result
+import com.akanbi.rickandmorty.network.model.location.ResultLocation
 
-class LocationMapper: GeneralMapper<Result, LocationModel> {
+class LocationMapper: GeneralMapper<ResultLocation, LocationModel> {
 
-    override fun convert(model: Result): LocationModel =
+    override fun convert(model: ResultLocation): LocationModel =
         LocationModel(
             id = model.id,
             name = model.name,

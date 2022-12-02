@@ -10,7 +10,7 @@ import com.akanbi.rickandmorty.domain.model.LocationModel
 import com.akanbi.rickandmorty.domain.model.LocationUI
 import com.akanbi.rickandmorty.network.ResponseError
 import com.akanbi.rickandmorty.network.model.location.LocationResponse
-import com.akanbi.rickandmorty.network.model.location.Result
+import com.akanbi.rickandmorty.network.model.location.ResultLocation
 import javax.inject.Inject
 
 class GetListLocationUseCase @Inject constructor(
@@ -54,9 +54,9 @@ class GetListLocationUseCase @Inject constructor(
             pagination = response.info
         )
 
-    private fun buildLocationList(results: List<Result>): MutableList<LocationModel> {
+    private fun buildLocationList(resultLocations: List<ResultLocation>): MutableList<LocationModel> {
         val locations = mutableListOf<LocationModel>()
-        results.forEach { currentLocation ->
+        resultLocations.forEach { currentLocation ->
             locations.add(mapper.convert(currentLocation))
         }
         return locations

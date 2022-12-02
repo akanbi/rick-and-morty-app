@@ -1,6 +1,6 @@
 package com.akanbi.rickandmorty.network.model.location
 
-data class Result(
+data class ResultLocation(
     val created: String,
     val dimension: String,
     val id: Int,

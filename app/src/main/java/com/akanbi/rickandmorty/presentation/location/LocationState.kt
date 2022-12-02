@@ -13,7 +13,7 @@ sealed class LocationUIEvent: UIEvent {
     data class OnLoading(val isLoading: Boolean): LocationUIEvent()
     data class OnError(val isError: Boolean): LocationUIEvent()
     data class ShowLocations(val locations: List<LocationModel>) : LocationUIEvent()
-    data class ShowResidents(val residents: List<Residents>, val locations: List<LocationModel>): LocationUIEvent()
+    data class ShowResidents(val residents: List<Residents>): LocationUIEvent()
 }
 
 @Immutable

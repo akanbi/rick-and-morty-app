@@ -3,6 +3,7 @@ package com.akanbi.rickandmorty.network
 import com.akanbi.rickandmorty.domain.type.CharacterGender
 import com.akanbi.rickandmorty.domain.type.CharacterStatus
 import com.akanbi.rickandmorty.network.model.character.CharacterResponse
+import com.akanbi.rickandmorty.network.model.character.ResultCharacter
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -13,7 +14,7 @@ interface CharacterAPI {
     suspend fun list(@Query("page") page: Int): CharacterResponse
 
     @GET("character/{id}")
-    suspend fun findById(@Path("id") id: String)
+    suspend fun findById(@Path("id") id: String): ResultCharacter
 
     @GET("character")
     suspend fun searchBy(

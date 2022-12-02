@@ -2,7 +2,7 @@ package com.akanbi.rickandmorty.network.model.character
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class ResultCharacter(
     @SerializedName("created")
     val created: String,
     @SerializedName("episode")

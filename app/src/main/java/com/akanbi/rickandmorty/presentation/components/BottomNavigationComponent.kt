@@ -38,7 +38,7 @@ fun BottomNavigationComponent(
             },
             selected = false,
             onClick = {
-                popBackStackWhenCharacterDetailsRoute(navController)
+                popBackStackWhenDetailsOrLocation(navController)
                 navController.navigateToCharacterScreen()
             }
         )
@@ -74,6 +74,11 @@ fun BottomNavigationComponent(
             }
         )
     }
+}
+
+private fun popBackStackWhenDetailsOrLocation(navController: NavHostController) {
+    if (navController.isRouteBy(CharacterDetailsDestination.route) || navController.isRouteBy(LocationDestination.route))
+        navController.popBackStack()
 }
 
 private fun popBackStackWhenCharacterDetailsRoute(navController: NavHostController) {

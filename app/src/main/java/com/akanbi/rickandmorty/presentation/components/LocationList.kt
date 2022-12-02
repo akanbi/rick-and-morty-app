@@ -1,5 +1,6 @@
 package com.akanbi.rickandmorty.presentation.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,11 +19,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.akanbi.rickandmorty.domain.model.LocationModel
+import com.akanbi.rickandmorty.presentation.components.model.Residents
+import com.akanbi.rickandmorty.presentation.location.LocationViewModel
 
 @Composable
 fun LocationList(
     modifier: Modifier = Modifier,
-    locations: List<LocationModel>
+    locations: List<LocationModel>,
+    onShowResidents: (LocationModel) -> Unit,
+    residents: List<Residents> = listOf()
 ) {
     LazyColumn(
         modifier = modifier,
@@ -31,13 +36,23 @@ fun LocationList(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(locations) { currentLocation ->
-            LocationElement(currentLocation)
+            LocationElement(
+                location = currentLocation,
+                onShowResidents = {
+                    onShowResidents(it)
+                },
+                residents = residents
+            )
         }
     }
 }
 
 @Composable
-fun LocationElement(location: LocationModel) {
+fun LocationElement(
+    location: LocationModel,
+    onShowResidents: (LocationModel) -> Unit,
+    residents: List<Residents>
+) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(10.dp),
@@ -55,7 +70,11 @@ fun LocationElement(location: LocationModel) {
             Text(text = location.type)
             Text(text = location.dimension)
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .clickable {
+                        onShowResidents(location)
+                    }
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.End
             ) {
@@ -64,6 +83,9 @@ fun LocationElement(location: LocationModel) {
                     Icons.Default.PlayArrow,
                     contentDescription = ""
                 )
+            }
+            if (residents.isNotEmpty()) {
+                ResidentsGrid(residentsUrl = residents)
             }
         }
     }
@@ -81,7 +103,9 @@ fun LocationElementPreview() {
             created = "2017-11-10T12:42:04.162Z",
             url = "",
             residents = listOf()
-        )
+        ),
+        onShowResidents = {},
+        residents = listOf()
     )
 }
 
@@ -135,6 +159,7 @@ fun LocationListPreview() {
                 url = "",
                 residents = listOf()
             )
-        )
+        ),
+        onShowResidents = {}
     )
 }
